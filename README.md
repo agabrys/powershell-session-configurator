@@ -7,6 +7,7 @@ The `configure.ps1` script configures predefined tools in the current PowerShell
 - [Tools](#tools)
   - [K3d](#k3d)
   - [Kubectl](#kubectl)
+  - [Kubectx](#kubectx)
 
 ## Usage
 
@@ -36,11 +37,15 @@ to remove it.
 
 ### K3d
 
-When the [`k3d`](https://k3d.io/) tool is available on `$env:PATH` the configurator enables the auto-completion feature.
+When [`k3d`](https://k3d.io/) is available on `$env:PATH`, the configurator enables the auto-completion feature.
 
 ### Kubectl
 
-When the [`kubectl`](https://kubernetes.io/docs/reference/kubectl/kubectl/) tool is available on `$env:PATH` the configurator:
+When [`kubectl`](https://kubernetes.io/docs/reference/kubectl/kubectl/) is available on `$env:PATH`, the configurator:
 
 - enables the auto-completion feature
 - adds the `k` alias
+
+### Kubectx
+
+When [`kubectx`](https://github.com/ahmetb/kubectx) is available on `$env:PATH`, the configurator enables the auto-completion feature.
