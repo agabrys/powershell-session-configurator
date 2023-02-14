@@ -1,5 +1,5 @@
 Invoke-Command -ScriptBlock {
-  $generatedDir = "${PSScriptRoot}\..\generated"
+  $rootDir = "${PSScriptRoot}\.."
 
   function SetupAll {
     SetupKubectl
@@ -30,7 +30,7 @@ Invoke-Command -ScriptBlock {
       FilePath = $null
     }
 
-    $completionPath = "${generatedDir}\${commandName}.ps1"
+    $completionPath = "${rootDir}\generated\${commandName}.ps1"
     $result.FilePath = $completionPath
 
     $command = Get-Command -Name $commandName -ErrorAction 'SilentlyContinue'
