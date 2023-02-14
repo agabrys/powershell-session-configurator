@@ -1,7 +1,10 @@
 if (Invoke-Command -ScriptBlock {
   $command = ". `"${PSScriptRoot}\configure.ps1`""
 
-  $result = Select-String -Pattern $command -Path $profile -SimpleMatch
+  $result = $null
+  if (Test-Path -Path $profile) {
+    $result = Select-String -Pattern $command -Path $profile -SimpleMatch
+  }
 
   if ($result -ne $null) {
     Write-Host 'Skipping installation. The configure.ps1 script is already executed by the user profile file'
