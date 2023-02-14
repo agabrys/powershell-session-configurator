@@ -8,6 +8,7 @@ The `configure.ps1` script configures predefined tools in the current PowerShell
   - [K3d](#k3d)
   - [Kubectl](#kubectl)
   - [Kubectx](#kubectx)
+  - [Kubens](#kubens)
 
 ## Usage
 
@@ -49,3 +50,7 @@ When [`kubectl`](https://kubernetes.io/docs/reference/kubectl/kubectl/) is avail
 ### Kubectx
 
 When [`kubectx`](https://github.com/ahmetb/kubectx) is available on `$env:PATH`, the configurator enables the auto-completion feature.
+
+### Kubens
+
+When [`kubens`](https://github.com/ahmetb/kubectx) is available on `$env:PATH`, the configurator enables the auto-completion feature.
