@@ -30,10 +30,10 @@ Invoke-Command -ScriptBlock {
       FilePath = $null
     }
 
-    $completionPath = "${rootDir}\generated\${commandName}.ps1"
+    $completionPath = "${rootDir}\generated\${CommandName}.ps1"
     $result.FilePath = $completionPath
 
-    $command = Get-Command -Name $commandName -ErrorAction 'SilentlyContinue'
+    $command = Get-Command -Name $CommandName -ErrorAction 'SilentlyContinue'
     if ($command -ne $null) {
       $result.Exists = $true
       $recreate = $true
@@ -43,7 +43,7 @@ Invoke-Command -ScriptBlock {
         $recreate = $completionFile.LastWriteTime -lt $commandTime.LastWriteTime
       }
       if ($recreate) {
-        Invoke-Expression -Command "${commandName} completion powershell" | Set-Content -Path $completionPath
+        Invoke-Expression -Command "${CommandName} completion powershell" | Set-Content -Path $completionPath
         $result.Updated = $true
       }
     } elseif (Test-Path -Path $completionPath -PathType 'Leaf') {

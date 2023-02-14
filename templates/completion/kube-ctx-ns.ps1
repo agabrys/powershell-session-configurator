@@ -15,17 +15,17 @@
 
 # Script based on the kubectl PowerShell completion
 
-function __kubectx_debug {
+function __COMMAND_NAME_TOKEN_debug {
   if ($env:BASH_COMP_DEBUG_FILE) {
     "${args}" | Out-File -Append -FilePath "${env:BASH_COMP_DEBUG_FILE}"
   }
 }
 
-filter __kubectx_escapeStringWithSpecialChars {
+filter __COMMAND_NAME_TOKEN_escapeStringWithSpecialChars {
   $_ -replace '\s|#|@|\$|;|,|''|\{|\}|\(|\)|"|`|\||<|>|&', '`$&'
 }
 
-Register-ArgumentCompleter -CommandName 'kubectx' -ScriptBlock {
+Register-ArgumentCompleter -CommandName 'COMMAND_NAME_TOKEN' -ScriptBlock {
   param(
     $WordToComplete,
     $CommandAst,
@@ -36,9 +36,9 @@ Register-ArgumentCompleter -CommandName 'kubectx' -ScriptBlock {
   $command = $CommandAst.CommandElements
   $command = "${command}"
 
-  __kubectx_debug ''
-  __kubectx_debug '========= starting completion logic =========='
-  __kubectx_debug "WordToComplete: ${WordToComplete} Command: ${command} CursorPosition: ${CursorPosition}"
+  __COMMAND_NAME_TOKEN_debug ''
+  __COMMAND_NAME_TOKEN_debug '========= starting completion logic =========='
+  __COMMAND_NAME_TOKEN_debug "WordToComplete: ${WordToComplete} Command: ${command} CursorPosition: ${CursorPosition}"
 
   # The user could have moved the cursor backwards on the command-line
   # We need to trigger completion from the $CursorPosition location, so we need
@@ -48,20 +48,20 @@ Register-ArgumentCompleter -CommandName 'kubectx' -ScriptBlock {
   if ($command.Length -gt $CursorPosition) {
     $command = $command.Substring(0, $CursorPosition)
   }
-  __kubectx_debug "Truncated command: ${command}"
+  __COMMAND_NAME_TOKEN_debug "Truncated command: ${command}"
 
   $program, $arguments = $command.Split(' ', 2)
   if ($arguments -eq $null) {
     $arguments = @()
-    __kubectx_debug "No arguments"
+    __COMMAND_NAME_TOKEN_debug "No arguments"
   } else {
     $arguments = $arguments.Split(' ')
-    __kubectx_debug "Arguments: ${arguments}"
+    __COMMAND_NAME_TOKEN_debug "Arguments: ${arguments}"
   }
 
   # When at least one agrument is passed, we should not provide more completions
   if ($WordToComplete -eq '' -and $arguments.Length -gt 0) {
-    __kubectx_debug "Only one argument is supported. No more completions"
+    __COMMAND_NAME_TOKEN_debug "Only one argument is supported. No more completions"
     return
   }
 
@@ -70,13 +70,13 @@ Register-ArgumentCompleter -CommandName 'kubectx' -ScriptBlock {
   if ($WordToComplete -ne '') {
     $WordToComplete = $arguments[-1]
   }
-  __kubectx_debug "New WordToComplete: ${WordToComplete}"
+  __COMMAND_NAME_TOKEN_debug "New WordToComplete: ${WordToComplete}"
 
-  __kubectx_debug "Calling ${program} to get available contexts"
+  __COMMAND_NAME_TOKEN_debug "Calling ${program} to get available contexts"
   # Call the command store the output in $out and redirect stderr and stdout to null
   # $values is an array contains each line per element
   Invoke-Expression -OutVariable values "$program" 2>&1 | Out-Null
-  __kubectx_debug "The completions are: ${values}"
+  __COMMAND_NAME_TOKEN_debug "The completions are: ${values}"
 
   # Filter the result
   $values = $values | Where-Object {
@@ -85,7 +85,7 @@ Register-ArgumentCompleter -CommandName 'kubectx' -ScriptBlock {
 
   # Get the current mode
   $mode = (Get-PSReadLineKeyHandler | Where-Object {$_.Key -eq 'Tab'}).Function
-  __kubectx_debug "Mode: $mode"
+  __COMMAND_NAME_TOKEN_debug "Mode: $mode"
 
   $values | ForEach-Object {
     # PowerShell supports three different completion modes
@@ -100,7 +100,7 @@ Register-ArgumentCompleter -CommandName 'kubectx' -ScriptBlock {
     # 3) ResultType     type of completion result
     # 4) ToolTip        text for the tooltip with details about the object
 
-    # kubectx supports only one parameter, so we do not need to add additional spaces at the end
+    # COMMAND_NAME_TOKEN supports only one parameter, so we do not need to add additional spaces at the end
     # The same completion result is returned for all modes
     [System.Management.Automation.CompletionResult]::new(
       $($_ | __kubectl_escapeStringWithSpecialChars),
